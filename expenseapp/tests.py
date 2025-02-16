@@ -88,7 +88,7 @@ def upload_interval_transactions(num_transactions_each: int=2):
             # append one transaction for this month 
             transactions_to_create.append(Transaction(
                 user=User.objects.get(username="mikeusername"), account=Account.objects.get(account_number=random.choice(test_account_numbers)),
-                description=f"Test {current_date.strftime("%m/%d/%Y")} {cat} Transaction #{i + 1}", category=cat,
+                description=f"Test {current_date.strftime('%m/%d/%Y')} {cat} Transaction #{i + 1}", category=cat,
                 amount=round(random.uniform(20, 50), 2), occur_date=converted_datetime
             ))
 
