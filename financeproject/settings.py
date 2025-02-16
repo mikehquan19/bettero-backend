@@ -26,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = 'django-insecure-iotsba(bmqwi=+q=dv7#n2gb)0k4l!xt@td_=4c$^bg_+a%@u$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.74', '127.0.0.1', 'localhost', 'expense-app-service-3141506939.dp-development-betteroapp-50469-3689178368']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(' ') if not DEBUG else ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -59,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -152,14 +154,7 @@ WSGI_APPLICATION = 'financeproject.wsgi.application'
 """
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "5003",
-    }
+    "default": dj_database_url.parse(os.environ.get('DATABASE_URL', ''))
 }
 
 
